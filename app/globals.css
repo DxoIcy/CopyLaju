@@ -33,11 +33,7 @@ a{color:inherit}
 nav{position:sticky;top:0;z-index:20;background:rgba(11,25,44,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
 .logo{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.03em;display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
-.logo b{width:26px;height:26px;flex:none;font-size:0;color:transparent;border-radius:3px;background:
-  linear-gradient(var(--accent),var(--accent)) 0 0/12px 12px no-repeat,
-  linear-gradient(#3aa0c8,#3aa0c8) 14px 0/12px 12px no-repeat,
-  linear-gradient(#1f6f9a,#1f6f9a) 0 14px/12px 12px no-repeat,
-  linear-gradient(var(--accent),var(--accent)) 14px 14px/12px 12px no-repeat}
+.logo b{background:var(--accent);color:#06121f;border-radius:9px;width:30px;height:30px;display:grid;place-items:center;font-size:17px;transform:rotate(-6deg);flex:none}
 nav .links{display:flex;gap:30px;font-size:14px}
 nav .links a{text-decoration:none;color:var(--text-2);transition:color .15s}
 nav .links a:hover{color:#fff}
