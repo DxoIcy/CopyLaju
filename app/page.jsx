@@ -10,7 +10,7 @@ export default function Home() {
       <Nav landing />
 
       <header className="hero wrap" id="top">
-        <div className="pill">🔥 Untuk affiliate yang malas tulis caption</div>
+        <div className="pill">Untuk affiliate yang malas tulis caption</div>
         <h1>
           Copywriting <span className="hl">viral</span> siap dalam <span className="co">10 saat</span>.
         </h1>
