@@ -59,7 +59,7 @@ section{padding:60px 0}
 .field{margin-bottom:16px}
 .field label{display:block;font-weight:700;font-size:13px;margin-bottom:7px;color:#efe7da}
 .field label small{font-weight:500;color:#8f867a}
-input[type=text],textarea,select{width:100%;background:#16130f;color:#fff;border:1px solid #3e362d;border-radius:12px;padding:11px 13px;font:inherit;font-size:14.5px;outline:none;transition:border .15s}
+input[type=text],input[type=password],input[type=email],input[type=tel],input[type=number],textarea,select{width:100%;background:#16130f;color:#fff;border:1px solid #3e362d;border-radius:12px;padding:11px 13px;font:inherit;font-size:14.5px;outline:none;transition:border .15s}
 input:focus,textarea:focus,select:focus{border-color:var(--lime)}
 textarea{min-height:92px;resize:vertical}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
