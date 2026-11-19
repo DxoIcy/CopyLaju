@@ -70,7 +70,7 @@ export default function Pricing({ profile = null, autoOpen = false }) {
           </div>
         ))}
       </div>
-      <p className="note">Bayar melalui FPX (online banking) atau kad kredit dengan ToyyibPay. Pakej aktif serta-merta selepas bayaran.</p>
+      <p className="note">Bayar melalui FPX (online banking), kad kredit atau DuitNow QR (Touch 'n Go eWallet) dengan ToyyibPay. Pakej aktif serta-merta selepas bayaran.</p>
 
       {plan && (
         <div className="modal-bg" onClick={(e) => e.target === e.currentTarget && !busy && setPlan(null)}>
