@@ -2,9 +2,9 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabaseBrowser } from "@/lib/supabase-browser";
+import Logo from "./Logo";
 
-const APP = process.env.NEXT_PUBLIC_APP_NAME || "CopyLaju";
-
+// Navigasi atas untuk halaman awam (landing, terma, bayaran)
 export default function Nav({ landing = false }) {
   const [loggedIn, setLoggedIn] = useState(null);
 
@@ -15,41 +15,31 @@ export default function Nav({ landing = false }) {
     return () => sub.subscription.unsubscribe();
   }, []);
 
-  async function logout() {
-    await supabaseBrowser().auth.signOut();
-    window.location.href = "/";
-  }
-
   return (
-    <nav>
-      <div className="wrap">
-        <Link className="logo" href="/"><b>⚡</b>{APP}</Link>
+    <header className="topnav">
+      <div className="container">
+        <Logo />
         {landing && (
-          <div className="links">
+          <nav className="links" aria-label="Navigasi utama">
             <a href="/#cara">Cara Guna</a>
+            <a href="/#gaya">Gaya Penulisan</a>
             <a href="/#ciri">Ciri-ciri</a>
             <a href="/#harga">Harga</a>
             <a href="/#soalan">Soalan</a>
-          </div>
+          </nav>
         )}
-        <div style={{ display: "flex", gap: 8 }}>
+        <div className="actions">
           {loggedIn === true && (
-            <>
-              {landing ? (
-                <Link className="btn btn-dark" href="/app" style={{ padding: "9px 18px", fontSize: 14 }}>Buka App</Link>
-              ) : (
-                <button className="btn btn-line" onClick={logout} style={{ padding: "8px 16px", fontSize: 14 }}>Log Keluar</button>
-              )}
-            </>
+            <Link className="btn btn-primary btn-sm" href="/app">Ke Dashboard</Link>
           )}
           {loggedIn === false && (
             <>
-              <Link className="btn btn-line" href="/masuk" style={{ padding: "8px 16px", fontSize: 14 }}>Log Masuk</Link>
-              <Link className="btn btn-dark" href="/masuk?daftar=1" style={{ padding: "9px 18px", fontSize: 14 }}>Daftar Percuma</Link>
+              <Link className="btn btn-ghost btn-sm" href="/masuk">Log Masuk</Link>
+              <Link className="btn btn-primary btn-sm" href="/masuk?daftar=1">Daftar Percuma</Link>
             </>
           )}
         </div>
       </div>
-    </nav>
+    </header>
   );
 }

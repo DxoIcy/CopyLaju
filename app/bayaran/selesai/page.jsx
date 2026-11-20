@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import { apiFetch } from "@/lib/supabase-browser";
+import { IconCheckCircle, IconBolt, IconClock, IconWallet } from "@/components/Icons";
 
 function Result() {
   const params = useSearchParams();
@@ -30,12 +31,39 @@ function Result() {
   }, [billcode, statusId]);
 
   return (
-    <div className="result-page">
-      <div>
-        {state === "checking" && (<><div className="dots" style={{ justifyContent: "center" }}><i /><i /><i /></div><h1>Sedang sahkan bayaran…</h1><p>Sila tunggu beberapa saat.</p></>)}
-        {state === "paid" && (<><div className="big">🎉</div><h1>Bayaran berjaya!</h1><p>Pakej Pro anda sudah aktif. Jom jana copy viral sekarang.</p><Link className="btn btn-coral" href="/app">⚡ Mula Jana</Link></>)}
-        {state === "pending" && (<><div className="big">⏳</div><h1>Bayaran sedang diproses</h1><p>Pakej akan aktif secara automatik sebaik sahaja bank mengesahkan bayaran. Semak semula dalam beberapa minit.</p><Link className="btn btn-dark" href="/app">Ke App</Link></>)}
-        {state === "failed" && (<><div className="big">😕</div><h1>Bayaran tidak berjaya</h1><p>Tiada caj dikenakan. Anda boleh cuba semula.</p><Link className="btn btn-coral" href="/app#harga">Cuba Lagi</Link></>)}
+    <div className="center-page">
+      <div className="card" style={{ maxWidth: 520, width: "100%", padding: "40px 28px" }}>
+        {state === "checking" && (
+          <>
+            <div className="dots" style={{ marginBottom: 22 }}><i /><i /><i /></div>
+            <h1>Sedang sahkan bayaran…</h1>
+            <p>Sila tunggu beberapa saat.</p>
+          </>
+        )}
+        {state === "paid" && (
+          <>
+            <div className="ic"><IconCheckCircle /></div>
+            <h1>Bayaran berjaya!</h1>
+            <p>Pakej anda sudah aktif. Jom jana caption viral sekarang.</p>
+            <Link className="btn btn-primary btn-lg italic" href="/app/jana"><IconBolt /> Mula Jana</Link>
+          </>
+        )}
+        {state === "pending" && (
+          <>
+            <div className="ic"><IconClock /></div>
+            <h1>Bayaran sedang diproses</h1>
+            <p>Pakej akan aktif secara automatik sebaik sahaja bank mengesahkan bayaran. Semak semula dalam beberapa minit.</p>
+            <Link className="btn btn-ghost" href="/app/kredit">Ke halaman Kredit</Link>
+          </>
+        )}
+        {state === "failed" && (
+          <>
+            <div className="ic" style={{ color: "var(--bad)", background: "rgba(255,122,144,.12)" }}><IconWallet /></div>
+            <h1>Bayaran tidak berjaya</h1>
+            <p>Tiada caj dikenakan. Anda boleh cuba semula.</p>
+            <Link className="btn btn-primary" href="/app/kredit">Cuba Lagi</Link>
+          </>
+        )}
       </div>
     </div>
   );

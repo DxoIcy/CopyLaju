@@ -21,15 +21,18 @@ export async function GET(req) {
   if (active && p.period_start && Date.now() >= new Date(p.period_start).getTime() + 30 * 864e5) used = 0;
   const planLeft = active ? Math.max(0, (p.monthly_quota || 0) - used) : 0;
 
+  // ?limit= (pilihan) untuk halaman Sejarah; lalai 15, maksimum 100
+  const lim = Math.min(100, Math.max(1, parseInt(new URL(req.url).searchParams.get("limit"), 10) || 15));
   const { data: history } = await db
     .from("generations")
     .select("id, input, output, created_at")
     .eq("user_id", user.id)
     .order("created_at", { ascending: false })
-    .limit(15);
+    .limit(lim);
 
   return Response.json({
     email: user.email,
+    createdAt: user.created_at,
     name: p?.full_name || "",
     phone: p?.phone || "",
     plan: active ? p.plan : null,

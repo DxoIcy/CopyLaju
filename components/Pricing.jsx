@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { PLANS, formatRM } from "@/lib/plans";
 import { supabaseBrowser, apiFetch } from "@/lib/supabase-browser";
+import { IconCheckCircle } from "./Icons";
 
 function sessionStorageGet(k) { try { return sessionStorage.getItem(k) || ""; } catch (_) { return ""; } }
 function sessionStorageSet(k, v) { try { sessionStorage.setItem(k, v); } catch (_) {} }
@@ -58,39 +59,44 @@ export default function Pricing({ profile = null, autoOpen = false }) {
     <>
       <div className="price-grid">
         {PLANS.map((p, i) => (
-          <div key={p.id} className={"price" + (i === 0 ? " hot" : "")}>
+          <div key={p.id} className={"card card-hover price" + (i === 0 ? " hot" : "")}>
             {p.badge && <span className="badge">{p.badge}</span>}
             <h3>{p.name}</h3>
             <div className="amt">{formatRM(p.price_sen)}</div>
             <div className="per">Bayaran sekali · {p.days} hari · tiada auto-caj</div>
-            <ul>{p.features.map((f) => <li key={f}>{f}</li>)}</ul>
-            <button className={"btn " + (i === 0 ? "btn-coral" : "btn-dark")} onClick={() => choose(p)}>
+            <ul>
+              {p.features.map((f) => (
+                <li key={f}><IconCheckCircle />{f}</li>
+              ))}
+            </ul>
+            <button className={"btn btn-block " + (i === 0 ? "btn-primary" : "btn-ghost")} onClick={() => choose(p)}>
               Pilih {p.name}
             </button>
           </div>
         ))}
       </div>
-      <p className="note">Bayar melalui FPX (online banking), kad kredit atau DuitNow QR (Touch 'n Go eWallet) dengan ToyyibPay. Pakej aktif serta-merta selepas bayaran.</p>
+      <p className="note">Bayaran selamat melalui ToyyibPay (FPX online banking atau kad). Pakej aktif serta-merta selepas bayaran disahkan.</p>
 
       {plan && (
         <div className="modal-bg" onClick={(e) => e.target === e.currentTarget && !busy && setPlan(null)}>
-          <form className="modal" onSubmit={pay}>
-            <h3>{plan.name}</h3>
-            <p style={{ color: "var(--muted)", marginBottom: 16 }}>
+          <form className="card modal" onSubmit={pay}>
+            <span className="pill-tag">Pakej dipilih</span>
+            <h3 style={{ marginTop: 10 }}>{plan.name}</h3>
+            <p className="muted" style={{ margin: "4px 0 18px" }}>
               {formatRM(plan.price_sen)} · {plan.days} hari · {plan.quota} jana sebulan
             </p>
             {err && <div className="msg bad">{err}</div>}
             <div className="field">
-              <label>Nama penuh</label>
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+              <label htmlFor="pay-name">Nama penuh</label>
+              <input id="pay-name" type="text" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} required />
             </div>
             <div className="field">
-              <label>No. telefon</label>
-              <input type="text" inputMode="tel" placeholder="0123456789" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+              <label htmlFor="pay-phone">No. telefon</label>
+              <input id="pay-phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="0123456789" value={phone} onChange={(e) => setPhone(e.target.value)} required />
             </div>
             <div className="row">
-              <button type="button" className="btn btn-line" disabled={busy} onClick={() => setPlan(null)}>Batal</button>
-              <button className="btn btn-coral" disabled={busy}>{busy ? "Menyambung…" : "Bayar Sekarang"}</button>
+              <button type="button" className="btn btn-ghost" disabled={busy} onClick={() => setPlan(null)}>Batal</button>
+              <button className="btn btn-primary" disabled={busy}>{busy ? "Menyambung…" : "Bayar Sekarang"}</button>
             </div>
           </form>
         </div>
